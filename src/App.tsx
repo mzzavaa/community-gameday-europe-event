@@ -11,7 +11,7 @@ const MILESTONES = [
   { id: "preshow", time: "17:30", label: "Pre-Show Loop", desc: "Audio & stream test" },
   { id: "mainevent", time: "18:00", label: "Live Stream", desc: "Welcome, speakers & GameDay instructions" },
   { id: "gameplay", time: "18:30", label: "GameDay", desc: "2 hours of competitive cloud gaming across Europe" },
-  { id: "closing", time: "20:30", label: "Closing Ceremony", desc: "Winners, local awards & wrap-up" },
+  { id: "closing", time: "20:30", label: "Closing Ceremony", desc: "Winners & wrap-up" },
 ];
 
 function msUntil(t: string) { return Math.max(0, new Date(`${EVENT_DATE}T${t}:00`).getTime() - Date.now()); }
