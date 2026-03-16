@@ -1085,7 +1085,7 @@ const ArnaudLoicCard: React.FC<{ frame: number; fps: number }> = ({ frame, fps }
     {
       name: "Arnaud",
       face: "AWSCommunityGameDayEurope/faces/arnaud.jpg",
-      title: "Developer Advocate",
+      title: "Sr. Developer Advocate",
       company: "Amazon Web Services",
     },
     {
