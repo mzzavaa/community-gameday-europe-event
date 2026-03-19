@@ -31,14 +31,12 @@ jobs:
           path: stream
 
       # 3. Inject event config into the template
-      #    schedule.ts  → web-player (drives segment switching and countdown)
+      #    schedule.ts     → web-player (drives segment switching and countdown)
       #    participants.ts → stream config (organizers, UG data, logos — single source of truth)
-      #    logos.ts       → stream config (kept for backwards compatibility, map is empty)
       - name: Apply event config
         run: |
           cp countdown/config/schedule.ts    stream/web-player/src/schedule.ts
           cp countdown/config/participants.ts stream/config/participants.ts
-          cp countdown/config/logos.ts        stream/config/logos.ts
 
       # 4. Merge event-specific face photos (if present in this repo)
       #    Add organizer face photos to public/faces/ in this repo.
