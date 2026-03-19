@@ -1,27 +1,70 @@
 name: Deploy to GitHub Pages
+
 on:
   push:
     branches: [main]
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # 1. Check out this config repo
+      - name: Checkout event config
+        uses: actions/checkout@v4
         with:
-          node-version: 20
-      - run: npm install
-      - run: npm run build
+          path: countdown
+
+      # 2. Check out the stream template repo (all web-player and composition code)
+      - name: Checkout stream template
+        uses: actions/checkout@v4
+        with:
+          repository: mzzavaa/community-gameday-europe-stream
+          path: stream
+
+      # 3. Inject event config into the template
+      #    schedule.ts  → web-player (drives segment switching and countdown)
+      #    participants.ts → stream config (feeds all compositions with organizer/UG data)
+      #    logos.ts       → stream config (feeds the pre-show UG logo spotlight)
+      - name: Apply event config
+        run: |
+          cp countdown/config/schedule.ts    stream/web-player/src/schedule.ts
+          cp countdown/config/participants.ts stream/config/participants.ts
+          cp countdown/config/logos.ts        stream/config/logos.ts
+
+      # 4. Merge event-specific face photos (if present in this repo)
+      #    Add organizer face photos to public/faces/ in this repo.
+      #    They will overwrite or supplement the template's default assets.
+      - name: Merge face photos
+        run: |
+          if [ -d countdown/public/faces ]; then
+            cp -r countdown/public/faces/. stream/public/assets/faces/
+            echo "Merged face photos from countdown/public/faces/"
+          else
+            echo "No face photos in countdown/public/faces/ — using template defaults"
+          fi
+
+      # 5. Install and build the web player with the correct GitHub Pages base path
+      - name: Install dependencies
+        working-directory: stream/web-player
+        run: npm install
+
+      - name: Build
+        working-directory: stream/web-player
+        run: npm run build -- --base=/gameday-europe-countdown/
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: stream/web-player/dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
