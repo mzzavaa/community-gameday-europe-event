@@ -42,17 +42,24 @@ jobs:
         run: |
           cp countdown/config/schedule.ts    stream/web-player/src/schedule.ts
           cp countdown/config/participants.ts stream/config/participants.ts
+          if [ -f countdown/config/event.ts ]; then
+            cp countdown/config/event.ts stream/config/event.ts
+            echo "Applied event.ts from event repo"
+          fi
 
-      # 4. Merge event-specific face photos (if present in this repo)
+      # 4. Merge event-specific assets (if present in this repo)
       #    Add organizer face photos to public/faces/ in this repo.
-      #    They will overwrite or supplement the template's default assets.
-      - name: Merge face photos
+      #    Add support-process-h264.mp4 to public/assets/ to enable the support video.
+      #    These files overwrite or supplement the template's default assets.
+      - name: Merge assets
         run: |
           if [ -d countdown/public/faces ]; then
             cp -r countdown/public/faces/. stream/public/assets/faces/
             echo "Merged face photos from countdown/public/faces/"
-          else
-            echo "No face photos in countdown/public/faces/ — using template defaults"
+          fi
+          if [ -f countdown/public/support-process-h264.mp4 ]; then
+            cp countdown/public/support-process-h264.mp4 stream/public/assets/support-process-h264.mp4
+            echo "Merged support video from countdown/public/"
           fi
 
       # 5. Install and build the web player.
