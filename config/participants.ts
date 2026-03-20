@@ -11,16 +11,17 @@
 
 // ── Organizer Interface ──
 export interface Organizer {
-  name: string;          // Short name — used for lookups (must match STREAM_HOST_NAME etc.) and shown on screen
-  fullName?: string;     // Optional full name — only needed for the host's intro card (e.g., "Linda Mohamed")
+  name: string;          // Display name shown on screen and used for lookups
+  fullName?: string;     // Optional longer name — only needed if the display name differs (e.g., host intro card)
+  streamRole?: "host" | "support-presenter" | "gamemaster"; // Marks who does what on stream — set this instead of editing the template
   role: string;          // User group name or job title
-  country: string;       // Country name (or region for AWS supporters, or "Gamemaster")
+  country: string;       // Country name or region
   city?: string;         // City shown on cards (e.g., "Vienna, Austria")
   flag: string;
   face: string;
   type: "community" | "aws";
   title?: string;        // Professional title shown on intro cards (e.g., "AWS Community Hero")
-  subtitle?: string;     // Secondary line on intro card (e.g., "AWS UG Vienna · Förderverein AWS Community DACH")
+  subtitle?: string;     // Secondary line on intro card
   bio?: string[];        // Bullet points for the preshow bio slide
 }
 
@@ -36,7 +37,7 @@ export const ORGANIZERS: Organizer[] = [
     name: "Marcel", role: "AWS User Group Münsterland", country: "Germany", city: "Münster, Germany", flag: "🇩🇪", face: "assets/faces/marcel.jpg", type: "community",
   },
   {
-    name: "Linda", fullName: "Linda Mohamed", role: "AWS User Group Vienna", country: "Austria", city: "Vienna, Austria", flag: "🇦🇹", face: "assets/faces/linda.jpg", type: "community",
+    name: "Linda", fullName: "Linda Mohamed", streamRole: "host", role: "AWS User Group Vienna", country: "Austria", city: "Vienna, Austria", flag: "🇦🇹", face: "assets/faces/linda.jpg", type: "community",
     title: "AWS Community Hero",
     subtitle: "AWS User Group Vienna · Förderverein AWS Community DACH",
     bio: [
@@ -56,14 +57,14 @@ export const ORGANIZERS: Organizer[] = [
     name: "Lucian", role: "AWS User Group Timisoara", country: "Romania", city: "Timisoara, Romania", flag: "🇷🇴", face: "assets/faces/lucian.jpg", type: "community",
   },
   {
-    name: "Mihaly", role: "AWS User Group Budapest", country: "Hungary", city: "Budapest, Hungary", flag: "🇭🇺", face: "assets/faces/mihaly.jpg", type: "community",
+    name: "Mihaly", streamRole: "support-presenter", role: "AWS User Group Budapest", country: "Hungary", city: "Budapest, Hungary", flag: "🇭🇺", face: "assets/faces/mihaly.jpg", type: "community",
   },
 ];
 
 // ── AWS Supporters (Gamemasters & Community Team) ──
 export const AWS_SUPPORTERS: Organizer[] = [
-  { name: "Arnaud", role: "Sr. Developer Advocate, AWS",        country: "Gamemaster",              flag: "🎮", face: "assets/faces/arnaud.jpg", type: "aws" },
-  { name: "Loïc",   role: "Sr. Technical Account Manager, AWS", country: "Gamemaster",              flag: "🎮", face: "assets/faces/loic.jpg",   type: "aws" },
+  { name: "Arnaud", streamRole: "gamemaster", role: "Sr. Developer Advocate, AWS",        country: "France", flag: "🇫🇷", face: "assets/faces/arnaud.jpg", type: "aws" },
+  { name: "Loïc",   streamRole: "gamemaster", role: "Sr. Technical Account Manager, AWS", country: "France", flag: "🇫🇷", face: "assets/faces/loic.jpg",   type: "aws" },
   { name: "Uliana", role: "Community Manager, AWS",             country: "DACH, CEE, CEAR & MENAT", flag: "🌍", face: "assets/faces/uliana.jpg", type: "aws" },
   { name: "Natalia", role: "DevEx Community Manager, AWS",      country: "EMEA / Europe South",     flag: "🌍", face: "assets/faces/natalia.jpg", type: "aws" },
 ];
