@@ -37,10 +37,15 @@ GitHub does not allow workflows to enable Pages automatically on forked repos. T
 
 **3. Trigger a deploy**
 
-Push any change to `main`, or go to **Actions → Deploy to GitHub Pages → Re-run jobs**.
+Go to **Actions → Deploy to GitHub Pages → latest run → Re-run jobs**.
+
+> If the workflow already ran before you enabled Pages in step 2, the deploy was skipped.
+> Re-running it is required — this is a one-time thing.
 
 Your page will be live at:
 `https://<your-org-or-username>.github.io/<your-repo-name>/`
+
+The URL also appears at the top of **Settings → Pages** after the first successful deploy.
 
 ---
 
