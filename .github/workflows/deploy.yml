@@ -27,7 +27,7 @@ jobs:
       - name: Checkout stream template
         uses: actions/checkout@v4
         with:
-          repository: mzzavaa/community-gameday-europe-stream
+          repository: mzzavaa/community-gameday-europe-stream-templates
           path: stream
 
       # 3. Inject event config into the template
@@ -63,7 +63,7 @@ jobs:
 
       - name: Build
         working-directory: stream/web-player
-        run: npm run build -- --base=/gameday-europe-countdown/
+        run: npm run build -- --base=/community-gameday-europe-event/
 
       - uses: actions/upload-pages-artifact@v3
         with:
