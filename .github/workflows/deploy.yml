@@ -28,10 +28,13 @@ jobs:
         uses: actions/configure-pages@v4
 
       # 3. Check out the stream template repo (all web-player and composition code)
+      #    By default uses the upstream template. To use your own fork:
+      #    → Settings → Variables → New variable
+      #    → Name: TEMPLATE_REPO  Value: your-org/your-template-repo-name
       - name: Checkout stream template
         uses: actions/checkout@v4
         with:
-          repository: mzzavaa/community-gameday-europe-stream-templates
+          repository: ${{ vars.TEMPLATE_REPO || 'mzzavaa/community-gameday-europe-stream-templates' }}
           path: stream
 
       # 4. Inject event config into the template

@@ -71,6 +71,24 @@ community-gameday-europe-event/
 
 ---
 
+## Using a forked or modified template
+
+By default this repo builds against the upstream template:
+`mzzavaa/community-gameday-europe-stream-templates`
+
+If you want to use your own fork of the template (e.g. to change compositions, design, or add new inserts):
+
+1. Fork [`community-gameday-europe-stream-templates`](https://github.com/mzzavaa/community-gameday-europe-stream-templates) and make your changes
+2. In **this** repo (your event repo fork), go to **Settings → Secrets and variables → Actions → Variables tab**
+3. Create a new variable:
+   - **Name:** `TEMPLATE_REPO`
+   - **Value:** `your-org/your-template-repo-name`
+4. Push to `main` — the workflow now builds from your template fork
+
+No changes to any workflow file needed.
+
+---
+
 ## Updating config for a new edition
 
 Edit the files in `config/` and push:
