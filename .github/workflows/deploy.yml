@@ -23,14 +23,18 @@ jobs:
         with:
           path: countdown
 
-      # 2. Check out the stream template repo (all web-player and composition code)
+      # 2. Enable GitHub Pages (idempotent — safe to run on every push)
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      # 3. Check out the stream template repo (all web-player and composition code)
       - name: Checkout stream template
         uses: actions/checkout@v4
         with:
           repository: mzzavaa/community-gameday-europe-stream-templates
           path: stream
 
-      # 3. Inject event config into the template
+      # 4. Inject event config into the template
       #    schedule.ts     → web-player (drives segment switching and countdown)
       #    participants.ts → stream config (organizers, UG data, logos — single source of truth)
       - name: Apply event config
@@ -38,7 +42,7 @@ jobs:
           cp countdown/config/schedule.ts    stream/web-player/src/schedule.ts
           cp countdown/config/participants.ts stream/config/participants.ts
 
-      # 4. Merge event-specific face photos (if present in this repo)
+      # 5. Merge event-specific face photos (if present in this repo)
       #    Add organizer face photos to public/faces/ in this repo.
       #    They will overwrite or supplement the template's default assets.
       - name: Merge face photos
@@ -50,7 +54,7 @@ jobs:
             echo "No face photos in countdown/public/faces/ — using template defaults"
           fi
 
-      # 5. Install and build the web player.
+      # 6. Install and build the web player.
       #    Base path is derived from the repository name so forks work automatically.
       #    GitHub Pages serves from: https://<owner>.github.io/<repo-name>/
       - name: Install stream root dependencies
