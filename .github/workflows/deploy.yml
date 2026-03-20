@@ -21,7 +21,7 @@ jobs:
     steps:
       # 1. Check out this config repo
       - name: Checkout event config
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: countdown
 
@@ -30,7 +30,7 @@ jobs:
       #    → Settings → Secrets and variables → Actions → Variables tab
       #    → Name: TEMPLATE_REPO  Value: your-org/your-template-repo-name
       - name: Checkout stream template
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: ${{ vars.TEMPLATE_REPO || 'mzzavaa/community-gameday-europe-stream-templates' }}
           path: stream
@@ -73,7 +73,7 @@ jobs:
           echo "Building with base path: /${REPO_NAME}/"
           npm run build -- --base=/${REPO_NAME}/
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: stream/web-player/dist
 
