@@ -16,6 +16,21 @@ https://mzzavaa.github.io/community-gameday-europe-event/
 
 ---
 
+## Setup (required once per fork)
+
+Before the first deploy will work, **GitHub Pages must be enabled** in the repository settings:
+
+1. Go to **Settings → Pages**
+2. Under **Source**, select **GitHub Actions**
+3. Save
+
+Then push any change to `main` to trigger the first build. The page will be live at:
+`https://<your-org-or-username>.github.io/<your-repo-name>/`
+
+The base path is derived automatically from the repository name — no hardcoded paths.
+
+---
+
 ## How it works
 
 On every push to `main`, GitHub Actions:

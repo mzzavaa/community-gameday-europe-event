@@ -50,9 +50,9 @@ jobs:
             echo "No face photos in countdown/public/faces/ — using template defaults"
           fi
 
-      # 5. Install and build the web player with the correct GitHub Pages base path
-      #    The stream root must be installed first so @remotion/transitions and other
-      #    Remotion packages are available when the web-player resolves its composition imports.
+      # 5. Install and build the web player.
+      #    Base path is derived from the repository name so forks work automatically.
+      #    GitHub Pages serves from: https://<owner>.github.io/<repo-name>/
       - name: Install stream root dependencies
         working-directory: stream
         run: npm install
@@ -63,7 +63,10 @@ jobs:
 
       - name: Build
         working-directory: stream/web-player
-        run: npm run build -- --base=/community-gameday-europe-event/
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          echo "Building with base path: /${REPO_NAME}/"
+          npm run build -- --base=/${REPO_NAME}/
 
       - uses: actions/upload-pages-artifact@v3
         with:
