@@ -1,1 +1,24 @@
+# OS files
 .DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Dependencies (if anyone runs npm install locally)
+node_modules/
+
+# Environment / secrets
+.env
+.env.local
+
+# Video / binary assets — render locally, never commit
+*.mp4
+*.MP4
+*.mov
+*.MOV
+
+# Tool/IDE state
+.claude
+.playwright-mcp/
+.idea/
+.vscode/
