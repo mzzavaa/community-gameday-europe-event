@@ -202,6 +202,37 @@ export const ORGANIZERS: Organizer[] = [
   },
 ];
 
+// ── Event Region ──
+// Used in stream copy ("57 cities across Europe", etc.)
+export const EVENT_REGION = "Europe";
+
+// ── Display Stats Config ────────────────────────────────────────────────────
+// Pick which 1-5 stats appear in the "By the Numbers" sections.
+// Values are resolved automatically from participants + event config.
+//
+// Available options:
+//   "user-groups"    → USER_GROUPS.length   (UG count)
+//   "countries"      → COUNTRIES.length     (unique flags)
+//   "timezones"      → TIMEZONE_COUNT       (from event.ts)
+//   "edition"        → EDITION              (from event.ts, e.g. "1st")
+//   "gameplay-hours" → GAMEPLAY_HOURS       (from event.ts)
+export type StatType =
+  | "user-groups"
+  | "countries"
+  | "timezones"
+  | "edition"
+  | "gameplay-hours";
+
+/** Each entry is either a plain type or a type + sub-label override. */
+export type StatConfig = StatType | { type: StatType; sub: string };
+
+export const DISPLAY_STATS: StatConfig[] = [
+  "user-groups",
+  "countries",
+  "timezones",
+  "edition",
+];
+
 // ── AWS Supporters (Gamemasters & Community Team) ──
 export const AWS_SUPPORTERS: Organizer[] = [
   { name: "Arnaud", streamRole: "gamemaster", jobTitle: "Sr. Developer Advocate, AWS",        flag: "🇫🇷", face: "assets/faces/arnaud.jpg", type: "aws",
